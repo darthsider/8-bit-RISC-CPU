@@ -5,7 +5,7 @@
 // Design Name: Data Aquisition System
 // Module Name: das 
 //////////////////////////////////////////////////////////////////////////////////
-module das(clk,reset,data_in,read,address,load,data_out,done);
+module top_module(clk,reset,data_in,read,address,load,data_out,done);
 
   input clk,reset;
   input [1:0] data_in;
