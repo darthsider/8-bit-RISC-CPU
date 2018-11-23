@@ -1,0 +1,30 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// digitalvlsidesign.com 
+// Create Date: 03/05/2018 
+// Design Name: 16-bit RISC CPU
+// Module Name: risc_cpu.v 
+//////////////////////////////////////////////////////////////////////////////////
+
+module risc_cpu_tb;
+  
+  reg clk;
+  reg reset;
+  
+  risc_cpu dut1 (clk,reset);
+
+  initial begin
+    clk = 0;
+    forever #5 clk = ~clk;
+  end
+  
+
+  initial begin
+    reset = 1;
+    repeat(5) @(posedge clk);
+    reset = 0;
+    #5000;
+    $finish;
+  end
+  
+endmodule

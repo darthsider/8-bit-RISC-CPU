@@ -1,0 +1,67 @@
+# Reading C:/questasim_10.0b/tcl/vsim/pref.tcl 
+# //  Questa Sim
+# //  Version 10.0b win32 May  5 2011
+# //
+# //  Copyright 1991-2011 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //
+# OpenFile D:/HDLfiles/proRISC/proRISC.mpf 
+# Loading project proRISC
+#  
+# Compile of alu.v was successful.
+# Compile of defines.v was successful.
+# Compile of gp_registers.v was successful.
+# Compile of memory.v was successful.
+# Compile of processor.v was successful.
+# Compile of program_counter.v was successful.
+# Compile of register.v was successful.
+# Compile of proRISC.v was successful.
+# Compile of tb_proRISC.v was successful.
+# 9 compiles, 0 failed with no errors. 
+vsim -novopt work.tb_proRISC
+# vsim -novopt work.tb_proRISC 
+# Refreshing D:\HDLfiles\proRISC\work.tb_proRISC
+# Loading work.tb_proRISC
+# Refreshing D:\HDLfiles\proRISC\work.proRISC
+# Loading work.proRISC
+# Refreshing D:\HDLfiles\proRISC\work.processor
+# Loading work.processor
+# Refreshing D:\HDLfiles\proRISC\work.ALU
+# Loading work.ALU
+# Refreshing D:\HDLfiles\proRISC\work.register
+# Loading work.register
+# Refreshing D:\HDLfiles\proRISC\work.program_counter
+# Loading work.program_counter
+# Refreshing D:\HDLfiles\proRISC\work.gp_registers
+# Loading work.gp_registers
+# Refreshing D:\HDLfiles\proRISC\work.memory
+# Loading work.memory
+add wave sim:/tb_proRISC/dut/processing_unit/*
+run -all
+# ** Note: $finish    : D:/HDLfiles/proRISC/tb_proRISC.v(36)
+#    Time: 5045 ns  Iteration: 0  Instance: /tb_proRISC
+# 1
+# Break in Module tb_proRISC at D:/HDLfiles/proRISC/tb_proRISC.v line 36
+quit -sim
+do run.do
+# vsim -novopt work.tb_proRISC 
+# Loading work.tb_proRISC
+# Loading work.proRISC
+# Loading work.processor
+# Loading work.ALU
+# Loading work.register
+# Loading work.program_counter
+# Loading work.gp_registers
+# Loading work.memory
+# ** Note: $finish    : D:/HDLfiles/proRISC/tb_proRISC.v(36)
+#    Time: 5045 ns  Iteration: 0  Instance: /tb_proRISC
+# 1
+# Break in Module tb_proRISC at D:/HDLfiles/proRISC/tb_proRISC.v line 36
+# Simulation Breakpoint: 1
+# Break in Module tb_proRISC at D:/HDLfiles/proRISC/tb_proRISC.v line 36
+# MACRO ./run.do PAUSED at line 4
+quit -sim

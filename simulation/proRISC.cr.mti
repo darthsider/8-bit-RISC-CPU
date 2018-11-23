@@ -1,0 +1,60 @@
+D:/HDLfiles/proRISC/processor.v {1 {vlog -work work -vopt -nocovercells D:/HDLfiles/proRISC/processor.v
+QuestaSim vlog 10.0b Compiler 2011.05 May  5 2011
+-- Compiling module processor
+
+Top level modules:
+	processor
+
+} {} {}} D:/HDLfiles/proRISC/memory.v {1 {vlog -work work -vopt -nocovercells D:/HDLfiles/proRISC/memory.v
+QuestaSim vlog 10.0b Compiler 2011.05 May  5 2011
+-- Compiling module memory
+
+Top level modules:
+	memory
+
+} {} {}} D:/HDLfiles/proRISC/register.v {1 {vlog -work work -vopt -nocovercells D:/HDLfiles/proRISC/register.v
+QuestaSim vlog 10.0b Compiler 2011.05 May  5 2011
+-- Compiling module register
+
+Top level modules:
+	register
+
+} {} {}} D:/HDLfiles/proRISC/proRISC.v {1 {vlog -work work -vopt -nocovercells D:/HDLfiles/proRISC/proRISC.v
+QuestaSim vlog 10.0b Compiler 2011.05 May  5 2011
+-- Compiling module proRISC
+
+Top level modules:
+	proRISC
+
+} {} {}} D:/HDLfiles/proRISC/alu.v {1 {vlog -work work -vopt -nocovercells D:/HDLfiles/proRISC/alu.v
+QuestaSim vlog 10.0b Compiler 2011.05 May  5 2011
+-- Compiling module ALU
+
+Top level modules:
+	ALU
+
+} {} {}} D:/HDLfiles/proRISC/defines.v {1 {vlog -work work -vopt -nocovercells D:/HDLfiles/proRISC/defines.v
+QuestaSim vlog 10.0b Compiler 2011.05 May  5 2011
+
+} {} {}} D:/HDLfiles/proRISC/gp_registers.v {1 {vlog -work work -vopt -nocovercells D:/HDLfiles/proRISC/gp_registers.v
+QuestaSim vlog 10.0b Compiler 2011.05 May  5 2011
+-- Compiling module gp_registers
+
+Top level modules:
+	gp_registers
+
+} {} {}} D:/HDLfiles/proRISC/tb_proRISC.v {1 {vlog -work work -vopt -nocovercells D:/HDLfiles/proRISC/tb_proRISC.v
+QuestaSim vlog 10.0b Compiler 2011.05 May  5 2011
+-- Compiling module tb_proRISC
+
+Top level modules:
+	tb_proRISC
+
+} {} {}} D:/HDLfiles/proRISC/program_counter.v {1 {vlog -work work -vopt -nocovercells D:/HDLfiles/proRISC/program_counter.v
+QuestaSim vlog 10.0b Compiler 2011.05 May  5 2011
+-- Compiling module program_counter
+
+Top level modules:
+	program_counter
+
+} {} {}}
