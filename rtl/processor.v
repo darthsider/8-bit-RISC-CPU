@@ -253,5 +253,6 @@ default: state <= `fetch1;
 
 endcase
 end
+end
 
 endmodule
