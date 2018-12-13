@@ -38,7 +38,7 @@ wire [7:0] pc_OUT;
 wire [7:0] R0_out,R1_out,R2_out,R3_out;
 wire [7:0] bus;
               
-reg [3:0] state;
+reg [3:0] state, next_state;
 reg load_OP1,load_OP2,load_AR,load_IR,load_flag,load_PC;
 reg inc_PC,load_R0,load_R1,load_R2,load_R3;
 reg error;
@@ -91,168 +91,195 @@ begin
 if(reset) 
 state <= `fetch1;
 else
+state <= next_state;
+end
+    
+always @(state or opcode or src or dest or flag)
 begin
+load_OP1 = 0;
+load_OP2 = 0;
+load_PC = 0;
+inc_PC = 0;
+load_IR = 0;
+load_AR = 0;
+load_flag = 0;
+load_R0 = 0;
+load_R1 = 0;
+load_R2 = 0;
+load_R3 = 0;
+sel_PC = 0;
+sel_MEM = 0;
+sel_ALU = 0;
+sel_R0 = 0;
+sel_R1 = 0;
+sel_R2 = 0;
+sel_R3 = 0;
+write = 0;
+error = 0;
+next_state = state;
 case(state)
 
 `fetch1: begin
-state <= `fetch2;
-sel_PC <= 1;
-load_AR <= 1;
+next_state = `fetch2;
+sel_PC = 1;
+load_AR = 1;
 end //fetch1
 
 `fetch2: begin
-state <= `decode;
-sel_MEM <= 1;
-load_IR <= 1;
-inc_PC <= 1;
+next_state = `decode;
+sel_MEM =1;
+load_IR = 1;
+inc_PC = 1;
 end //fetch2
 
 `decode:
 case(opcode)
-`NOP: state <= `fetch1;
+`NOP: next_state = `fetch1;
 `ADD,`SUB,`AND: begin
-state <= `execute1;
-load_OP1 <= 1;
+next_state = `execute1;
+load_OP1 = 1;
 case(src)
-`R0: sel_R0 <= 1;
-`R1: sel_R1 <= 1;
-`R2: sel_R2 <= 1;
-`R3: sel_R3 <= 1;
-default: error <= 1;
+`R0: sel_R0 = 1;
+`R1: sel_R1 = 1;
+`R2: sel_R2 = 1;
+`R3: sel_R3 = 1;
+default: error = 1;
 endcase
 end
 `NOT: begin
-state <= `NOT1;
-load_OP1 <= 1;
+next_state = `NOT1;
+load_OP1 = 1;
 case(src)
-`R0: sel_R0 <= 1;
-`R1: sel_R1 <= 1;
-`R2: sel_R2 <= 1;
-`R3: sel_R3 <= 1;
-default: error <= 1;
+`R0: sel_R0 = 1;
+`R1: sel_R1 = 1;
+`R2: sel_R2 = 1;
+`R3: sel_R3 = 1;
+default: error = 1;
 endcase
 end
 `RD: begin
-state <= `read1;
-sel_PC <= 1;
-load_AR <= 1;
+next_state = `read1;
+sel_PC = 1;
+load_AR = 1;
 end
 `WR: begin
-state <= `write1;
-sel_PC <= 1;
-load_AR <= 1;
+next_state = `write1;
+sel_PC = 1;
+load_AR = 1;
 end
 `BR: begin
-state <= `branch1;
-sel_PC <= 1;
-load_AR <= 1;
+next_state = `branch1;
+sel_PC = 1;
+load_AR = 1;
 end
 `BRZ:if(flag == 1) 
 begin
-state <= `branch1;
-sel_PC <= 1;
-load_AR <= 1;
+next_state = `branch1;
+sel_PC = 1;
+load_AR = 1;
 end
 else begin
-state <= `fetch1;
-inc_PC <= 1;
+next_state = `fetch1;
+inc_PC = 1;
 end
 
-default: state <= `stop;
+default: next_state = `stop;
 endcase  //decode
 
 `execute1: begin
-state <= `execute2;
-load_OP2 <= 1;
+next_state = `execute2;
+load_OP2 = 1;
 case(dest)
-`R0: sel_R0 <= 1;
-`R1: sel_R1 <= 1;
-`R2: sel_R2 <= 1;
-`R3: sel_R3 <= 1;
-default: error <= 1;
+`R0: sel_R0 = 1;
+`R1: sel_R1 = 1;
+`R2: sel_R2 = 1;
+`R3: sel_R3 = 1;
+default: error = 1;
 endcase
 end //execute1
 
 `execute2: begin
-state <= `fetch1;
-sel_ALU <= 1;
-load_flag <= 1;
+next_state = `fetch1;
+sel_ALU = 1;
+load_flag = 1;
 case(dest)
-`R0: load_R0 <= 1;
-`R1: load_R1 <= 1;
-`R2: load_R2 <= 1;
-`R3: load_R3 <= 1;
-default: error <= 1;
+`R0: load_R0 = 1;
+`R1: load_R1 = 1;
+`R2: load_R2 = 1;
+`R3: load_R3 = 1;
+default: error = 1;
 endcase
 end //execute2
 
 `NOT1: begin
-state <= `fetch1;
-sel_ALU <= 1;
-load_flag <= 1;
+next_state = `fetch1;
+sel_ALU = 1;
+load_flag = 1;
 case(dest)
-`R0: load_R0 <= 1;
-`R1: load_R1 <= 1;
-`R2: load_R2 <= 1;
-`R3: load_R3 <= 1;
-default: error <= 1;
+`R0: load_R0 = 1;
+`R1: load_R1 = 1;
+`R2: load_R2 = 1;
+`R3: load_R3 = 1;
+default: error = 1;
 endcase
 end //NOT1
 
 `read1: begin
-state <= `read2;
-inc_PC <= 1;
+next_state = `read2;
+inc_PC = 1;
 end //read1
 
 `write1: begin
-state <= `write2;
-sel_MEM <= 1;
-load_AR <= 1;
-inc_PC <= 1;
+next_state = `write2;
+sel_MEM = 1;
+load_AR = 1;
+inc_PC = 1;
 end //write1
 
 `read2: begin
-state <= `fetch1;
-sel_MEM <= 1; 
+next_state = `fetch1;
+sel_MEM = 1; 
 case(dest)
-`R0: load_R0 <= 1;
-`R1: load_R1 <= 1;
-`R2: load_R2 <= 1;
-`R3: load_R3 <= 1;
-default: error <= 1;
+`R0: load_R0 = 1;
+`R1: load_R1 = 1;
+`R2: load_R2 = 1;
+`R3: load_R3 = 1;
+default: error = 1;
 endcase
 end //read2
 
 `write2: begin
-state <= `fetch1;
-write <= 1;
+next_state = `fetch1;
+write = 1;
 case(src)
-`R0: sel_R0 <= 1;
-`R1: sel_R1 <= 1;
-`R2: sel_R2 <= 1;
-`R3: sel_R3 <= 1;
-default: error <= 1;
+`R0: sel_R0 = 1;
+`R1: sel_R1 = 1;
+`R2: sel_R2 = 1;
+`R3: sel_R3 = 1;
+default: error = 1;
 endcase
 end //write2
 
 `branch1: begin
-state <= `branch2;
-sel_MEM <= 1;
-load_AR <= 1;
+next_state = `branch2;
+sel_MEM = 1;
+load_AR = 1;
 end //branch1
 
 `branch2: begin
-state <= `fetch1;
-sel_MEM <= 1;
-load_PC <= 1;
+next_state = `fetch1;
+sel_MEM = 1;
+load_PC = 1;
 end //branch2
 
-`stop: state <= `stop;
+`stop: next_state = `stop;
 
-default: state <= `fetch1; 
+default: next_state = `fetch1; 
 
 endcase
 end
-end
 
 endmodule
+
+
+
